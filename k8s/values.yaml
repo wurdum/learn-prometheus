@@ -1,0 +1,31 @@
+namespace: learn-prometheus
+name: learn-prometheus
+image:
+  name: learn-prometheus
+  version: "1.0"
+labels:
+  wurdum-kind: app
+  wurdum-platform: dotnet
+
+loki-stack:
+  grafana:
+    enabled: true
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hosts: ["grafana.docker.internal"]
+
+  prometheus:
+    enabled: true
+
+    alertmanager:
+      persistentVolume:
+        enabled: false
+
+    server:
+      global:
+        scrape_interval: 5s
+        scrape_timeout: 3s
+        evaluation_interval: 5s
+      persistentVolume:
+        enabled: false
